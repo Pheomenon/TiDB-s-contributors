@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DataBatch {
+public class PrListDataBatch {
     @Autowired
     private PrListMapper prListMapper;
     @Test
