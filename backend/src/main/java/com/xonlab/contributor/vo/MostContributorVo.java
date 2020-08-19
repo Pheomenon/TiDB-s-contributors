@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class MostContributorVo {
-    String name;
-    String date;
-    Integer times;
+    private String name;
+    private String date;
+    private Integer times;
 }

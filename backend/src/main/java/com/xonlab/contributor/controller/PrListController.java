@@ -82,7 +82,7 @@ public class PrListController {
             if (condition.get("dates") != null) {
                 Stream<String> dateStream = Stream.of(condition.get("dates").toString().split(", "));
                 List<String> dates = dateStream.map(s -> s.replace("[", "")).map(s -> s.replace("]", "")).sorted().collect(Collectors.toList());
-                wrapper.gt("time", dates.get(0));
+                wrapper.ge("time", dates.get(0));
                 wrapper.le("time", dates.get(1));
             }
             wrapper.orderByDesc("time");

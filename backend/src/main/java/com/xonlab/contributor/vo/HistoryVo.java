@@ -13,6 +13,9 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class HistoryVo {
-    String time;
-    String title;
+
+    private String time;
+
+    private String title;
+
 }

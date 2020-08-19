@@ -33,6 +33,8 @@ public class PrList implements Serializable {
 
     private String link;
 
+    private String status;
+
     private String tag;
 
     private Date time;
