@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Applicants from '@/views/Applicants'
+import Contributors from '@/views/Contributors'
 import Dashboard from '@/views/Dashboard'
-import Project from '@/views/Project'
+import PullRequests from '@/views/PullRequests'
+import CommitHistory from '@/views/CommitHistory'
+import MostContributor from '@/views/MostContributor'
 
 Vue.use(VueRouter)
 
@@ -13,22 +15,24 @@ Vue.use(VueRouter)
     component: Dashboard
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/contributors',
+    name: 'Contributors',
+    component: Contributors
   },
   {
-    path: '/applicants',
-    name: 'applicants',
-    component: Applicants
+    path: '/pulls',
+    name: 'pulls',
+    component: PullRequests
   },
   {
-    path: '/project',
-    name: 'project',
-    component: Project
+    path: '/history',
+    name: 'history',
+    component: CommitHistory
+  },
+  {
+    path: '/most',
+    name: 'most',
+    component: MostContributor
   }
 ]
 
