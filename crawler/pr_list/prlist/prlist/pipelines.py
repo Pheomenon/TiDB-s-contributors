@@ -5,9 +5,12 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+
+import json
+import scrapy
 class PrlistPipeline(object):
     def __init__(self):
-        self.f = open("pr_closed.json","wb")
+        self.f = open("pr_closed2.json","wb")
 
     def process_item(self, item, spider):
         content = json.dumps(dict(item),ensure_ascii=False)+",\n"

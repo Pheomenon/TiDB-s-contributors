@@ -13,6 +13,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class MostContributorVo {
     String name;
-    String year;
-    String times;
+    String date;
+    Integer times;
 }

@@ -14,6 +14,9 @@
         <v-btn router :to="'/pulls'">
             <span style="text-transform: none;">Pull requests</span>
         </v-btn>
+        <v-btn router :to="'/most'">
+            <span style="text-transform: none;">The top 30 contributors</span>
+        </v-btn>
         <v-menu offset-y>
             <template v-slot:activator="{on}">
                 <v-btn text v-on="on">

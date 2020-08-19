@@ -17,7 +17,7 @@ class PrlistSpider(scrapy.Spider):
             link = node.xpath("./a/@href").extract()
             author = node.xpath("./div[@class='mt-1 text-small text-gray']/span[@class='opened-by']/a/text()").extract()
             tags = node.xpath("./span[@class='labels lh-default d-block d-md-inline']/a[@class='d-inline-block IssueLabel']/text()").extract()
-            time = node.xpath("//relative-time[@class='no-wrap']/@datetime").extract()
+            time = node.xpath("./div[@class='mt-1 text-small text-gray']/span[@class='opened-by']/relative-time[@class='no-wrap']/@datetime").extract()
             
             item['prName'] = name[0]
             item['prLink'] = link[0]

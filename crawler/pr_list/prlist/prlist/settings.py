@@ -14,6 +14,11 @@ BOT_NAME = 'prlist'
 SPIDER_MODULES = ['prlist.spiders']
 NEWSPIDER_MODULE = 'prlist.spiders'
 
+RETRY_HTTP_CODES = [429]
+
+ITEM_PIPELINES = {
+   'prlist.pipelines.PrlistPipeline': 300
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'prlist (+http://www.yourdomain.com)'
@@ -52,9 +57,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'prlist.middlewares.PrlistDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'prlist.middlewares.TooManyRequestsRetryMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -74,7 +79,7 @@ ROBOTSTXT_OBEY = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
 #AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
