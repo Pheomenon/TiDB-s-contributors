@@ -29,7 +29,7 @@ public class PrDetailDataBatch {
     @Test
     public void fun() throws IOException, ParseException {
         //读取由pr_detail爬到的文件
-        String in = new String(Files.readAllBytes(Paths.get("../convertor/prDetail_modified.json")), StandardCharsets.UTF_8);
+        String in = new String(Files.readAllBytes(Paths.get("../convertor/prDetail_modified2.json")), StandardCharsets.UTF_8);
 
         //将文件中的字符串按, "分割并放入Stream
         Stream<String> closedContent1 = Stream.of(in.split(", \""));
@@ -37,20 +37,21 @@ public class PrDetailDataBatch {
         Stream<String> closedContent3 = Stream.of(in.split(", \""));
 
         //取出相应字段
-        List<String> authorAvatars = closedContent1.filter(s -> s.contains("authorAvatar")).map(s -> s.substring(19,s.length()-1)).collect(Collectors.toList());
-        List<String> prAuthors = closedContent2.filter(s -> s.contains("authorName")).map(s -> s.substring(14,s.length()-1)).collect(Collectors.toList());
-        List<String> prDetails = closedContent3.filter(s -> s.contains("prdetail")).map(s -> s.substring(12,s.length()-3)).collect(Collectors.toList());
+        List<String> prAuthors = closedContent1.filter(s -> s.contains("authorName")).map(s -> s.substring(17,s.length()-1)).collect(Collectors.toList());
+        List<String> prDetails = closedContent2.filter(s -> s.contains("prdetail")).map(s -> s.substring(12,s.length()-1)).map(s -> s.replace("<pre>","<p>")).map(s -> s.replace("</pre>","</p>")).map(s -> s.replace("\\n","")).collect(Collectors.toList());
+        List<String> prTitles = closedContent3.filter(s -> s.contains("prTitle")).map(s -> s.substring(21,s.length()-10)).collect(Collectors.toList());
 
-        insert(authorAvatars,prAuthors,prDetails);
+        insert(prAuthors,prDetails,prTitles);
     }
 
-    private void insert(List<String> authorAvatars, List<String> prAuthors, List<String> prDetails) throws ParseException {
-        if (authorAvatars.size() == prAuthors.size() && prAuthors.size() == prDetails.size()) {
-            for (int i = 0; i < authorAvatars.size(); i++) {
+    private void insert(List<String> prAuthors, List<String> prDetails, List<String> prTitles) {
+        if (prAuthors.size() == prDetails.size() && prDetails.size() == prTitles.size()) {
+            for (int i = 0; i < prAuthors.size(); i++) {
                 PrDetail pr = new PrDetail();
-                pr.setAuthorAvatar(authorAvatars.get(i));
+                pr.setAuthorAvatar("/avatars/"+prAuthors.get(i)+".jpg");
                 pr.setPrAuthor(prAuthors.get(i));
                 pr.setPrDetail(prDetails.get(i));
+                pr.setPrTitle(prTitles.get(i));
                 prDetailMapper.insert(pr);
             }
         } else

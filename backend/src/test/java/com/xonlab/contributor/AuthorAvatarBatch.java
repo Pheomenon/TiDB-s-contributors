@@ -41,7 +41,7 @@ public class AuthorAvatarBatch {
             wrapper.eq("pr_author", author);
             List<PrDetail> prs = prDetailService.list(wrapper);
             for (PrDetail pr : prs) {
-                pr.setLocateAvatar("/avatars/"+author+".jpg");
+                pr.setAuthorAvatar("/avatars/"+author+".jpg");
                 prDetailService.updateById(pr);
             }
         }
