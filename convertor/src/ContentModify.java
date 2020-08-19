@@ -12,11 +12,11 @@ import java.nio.file.Paths;
  */
 public class ContentModify {
     public static void main(String[] args) throws IOException {
-        String in = new String(Files.readAllBytes(Paths.get("../crawler/pr_detail/prdetail/prdetail/prDetail.json")), StandardCharsets.UTF_8);
-        String out = in.replace("\n",", \"\n");
+        String in = new String(Files.readAllBytes(Paths.get("../crawler/pr_detail/prdetail/prdetail/prDetail2.json")), StandardCharsets.UTF_8);
+        String out = in.replace("\n"," \"\n");
 
         try {
-            File file = new File("prDetail_modified.json");
+            File file = new File("prDetail_modified2.json");
             if (!file.exists()) {
                 file.createNewFile();
             }

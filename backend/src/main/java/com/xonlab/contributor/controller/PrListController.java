@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xonlab.contributor.common.R;
 import com.xonlab.contributor.entity.PrList;
 import com.xonlab.contributor.service.PrListService;
+import com.xonlab.contributor.vo.HistoryVo;
 import com.xonlab.contributor.vo.MostContributorVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,26 +33,39 @@ public class PrListController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @GetMapping("/history/{start}/{end}")
+    public R getHistory(@PathVariable String start, @PathVariable String end) {
+        List<HistoryVo> queryResult = prListService.getHistory(start, end);
+        return R.ok().data("rows", queryResult);
+    }
+
     @GetMapping("/most")
     public R getMost() {
-        List<MostContributorVo> queryResult = prListService.getMostContributors();
-        Set<String> dateSet = new TreeSet<>();
-        for (MostContributorVo item:queryResult) {
-            dateSet.add(item.getDate());
-        }
-        Map<Object, Object> frequency;
         List<Map> result = new ArrayList<>();
-        for (String date: dateSet) {
-            frequency = queryResult.stream().filter(item -> item.getDate().equals(date)).collect(Collectors.toMap(MostContributorVo::getName, MostContributorVo::getTimes));
-            frequency.put("date", date);
-            result.add(frequency);
-        }
         Set<String> nameSet = new HashSet<>();
-        nameSet.add("date");
-        for (MostContributorVo item : queryResult) {
-            nameSet.add(item.getName());
+        if (redisTemplate.opsForValue().get("most_rows") == null || redisTemplate.opsForValue().get("most_columns") == null) {
+            List<MostContributorVo> queryResult = prListService.getMostContributors();
+            Set<String> dateSet = new TreeSet<>();
+            for (MostContributorVo item : queryResult) {
+                dateSet.add(item.getDate());
+            }
+            Map<Object, Object> frequency;
+            for (String date : dateSet) {
+                frequency = queryResult.stream().filter(item -> item.getDate().equals(date)).collect(Collectors.toMap(MostContributorVo::getName, MostContributorVo::getTimes));
+                frequency.put("date", date);
+                result.add(frequency);
+            }
+            nameSet.add("date");
+            for (MostContributorVo item : queryResult) {
+                nameSet.add(item.getName());
+            }
+            redisTemplate.opsForValue().set("most_rows", result, 24, TimeUnit.HOURS);
+            redisTemplate.opsForValue().set("most_columns", nameSet, 24, TimeUnit.HOURS);
+        } else {
+            result = (List<Map>) redisTemplate.opsForValue().get("most_rows");
+            nameSet = (Set<String>) redisTemplate.opsForValue().get("most_columns");
         }
-        return R.ok().data("rows", result).data("columns",nameSet);
+        return R.ok().data("rows", result).data("columns", nameSet);
     }
 
     @PostMapping("/{current}/{limit}")
@@ -74,7 +89,7 @@ public class PrListController {
             prListService.page(listPage, wrapper);
             long total = listPage.getTotal();
             records = listPage.getRecords();
-            redisTemplate.opsForValue().set(condition, records);
+            redisTemplate.opsForValue().set(condition, records, 24, TimeUnit.HOURS);
             Map<String, Object> map = new HashMap<>();
             map.put("total", total);
             map.put("rows", records);

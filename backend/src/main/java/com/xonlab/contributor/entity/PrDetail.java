@@ -31,7 +31,7 @@ public class PrDetail implements Serializable {
 
     private String authorAvatar;
 
-    private String locateAvatar;
+    private String prTitle;
 
     private String prDetail;
 

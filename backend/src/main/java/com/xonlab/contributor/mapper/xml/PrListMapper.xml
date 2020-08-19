@@ -3,5 +3,9 @@
 <mapper namespace="com.xonlab.contributor.mapper.PrListMapper">
 <!--    按年份查询提交次数最多的人-->
     <select id="getMostContributors" resultType="com.xonlab.contributor.vo.MostContributorVo">
-        SELECT author as name, DATE_FORMAT(time,'%Y-%m-%d') as date,count(author) as times FROM pr_list GROUP BY name,date ORDER BY times DESC,name limit 178;     </select>
+        SELECT author as name, DATE_FORMAT(time,'%Y-%m-%d') as date,count(author) as times FROM pr_list GROUP BY name,date ORDER BY times DESC,name limit 178;
+    </select>
+    <select id="getHistory" resultType="com.xonlab.contributor.vo.HistoryVo">
+        SELECT time,title from pr_list where time &gt;= #{start} and time &lt;= #{end} ORDER BY time;;
+    </select>
 </mapper>
