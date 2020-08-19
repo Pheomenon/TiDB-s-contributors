@@ -68,7 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'prdetail.pipelines.ImagePipeline': 1,
+   # 'prdetail.pipelines.ImagePipeline': 1,
    'prdetail.pipelines.FilePipline': 2
 }
 

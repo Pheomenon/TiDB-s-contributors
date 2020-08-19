@@ -15,3 +15,5 @@ class PrdetailItem(scrapy.Item):
     authorName = scrapy.Field()
     #pr详细内容
     prdetail = scrapy.Field()
+    #pr的标题
+    prTitle = scrapy.Field()

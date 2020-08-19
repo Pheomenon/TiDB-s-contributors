@@ -11,7 +11,7 @@ from scrapy.pipelines.images import ImagesPipeline
 
 class FilePipline(object):
     def __init__(self):
-        self.f = open("prDetail.json","wb")
+        self.f = open("prDetail2.json","wb")
     
     # 将item中的内容以JSON格式存储
     def process_item(self, item, spider):
@@ -22,18 +22,18 @@ class FilePipline(object):
     def close_spider(self,spider):
         self.f.close()
     
-class ImagePipeline(ImagesPipeline):
+# class ImagePipeline(ImagesPipeline):
 
 
-    #将头像存入磁盘
-    def get_media_requests(self,item,info):
-        imageLink = item['authorAvatar']
-        yield scrapy.Request(imageLink,meta={'name':item['authorName']})
+#     #将头像存入磁盘
+#     def get_media_requests(self,item,info):
+#         imageLink = item['authorAvatar']
+#         yield scrapy.Request(imageLink,meta={'name':item['authorName']})
     
-    #重命名头像
-    def file_path(self, request, response=None, info=None):
-        filename = request.meta['name']+".jpg"
-        return filename
+#     #重命名头像
+#     def file_path(self, request, response=None, info=None):
+#         filename = request.meta['name']+".jpg"
+#         return filename
 
         
         

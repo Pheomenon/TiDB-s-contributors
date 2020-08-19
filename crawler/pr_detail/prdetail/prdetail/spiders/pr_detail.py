@@ -12,13 +12,15 @@ class prdetailSpider(scrapy.Spider):
             #创建item字段对象，用来存储信息
             item = PrdetailItem()
             
-            avatar = node.xpath("./div/div/div/a/img[@class='avatar rounded-1 avatar-user']/@src").extract()
+            # avatar = node.xpath("./div/div/div/a/img[@class='avatar rounded-1 avatar-user']/@src").extract()
             name = node.xpath("./div/div/div/div/div/h3/strong/a/text()").extract()
             detail = node.xpath("./div/div/div/div/div/task-lists/table[@class='d-block']/tbody/tr/td").extract()
+            title = response.xpath("//span[@class='js-issue-title']/text()").extract()
 
-            item['authorAvatar'] = avatar[0]
+            # item['authorAvatar'] = avatar[0]
             item['authorName'] = name[0]
             item['prdetail'] = detail[0]
+            item['prTitle'] = title[0]
 
             #返回提取到的每个item给管道去处理
             yield item
