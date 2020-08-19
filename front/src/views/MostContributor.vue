@@ -2,17 +2,18 @@
   <v-app style="background-color:gery lighten-1;">
     <v-card-title class="text-center justify-center py-6">
       <h1 class="font-weight-light display-3 basil--text">The top 30 contributors</h1>
-    </v-card-title> 
-          <ve-line height="800px" 
-          :data="chartData" 
-          :extend="extend" 
-          :loading="loading" 
-          :data-zoom="dataZoom" 
-          :mark-point="markPoint"
-          :colors="colors"
-          :settings="chartSettings"
-          ></ve-line>
-        </v-app>
+    </v-card-title>
+    <v-divider></v-divider>
+    <ve-line height="800px" 
+      :data="chartData" 
+      :extend="extend" 
+      :loading="loading" 
+      :data-zoom="dataZoom" 
+      :mark-point="markPoint"
+      :colors="colors"
+      :settings="chartSettings"
+      ></ve-line>
+  </v-app>
 </template>
 
 <script>

@@ -170,9 +170,9 @@ export default {
     limit: 30,
     show: false,
   }),
-  created() {
+  created () {
     this.condition = {};
-    this.getList();
+    this.getList()
   },
   methods: {
     getList(page = 1) {
