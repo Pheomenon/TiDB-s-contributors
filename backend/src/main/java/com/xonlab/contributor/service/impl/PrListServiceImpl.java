@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xonlab.contributor.entity.PrList;
 import com.xonlab.contributor.mapper.PrListMapper;
 import com.xonlab.contributor.service.PrListService;
+import com.xonlab.contributor.vo.MostContributorVo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrListServiceImpl extends ServiceImpl<PrListMapper, PrList> implements PrListService {
 
+    @Override
+    public List<MostContributorVo> getMostContributors() {
+        return baseMapper.getMostContributors();
+    }
 }

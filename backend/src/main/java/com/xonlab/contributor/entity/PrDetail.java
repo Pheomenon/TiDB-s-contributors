@@ -18,6 +18,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("pr_detail")
 @ApiModel(value="PrDetail对象", description="")
 public class PrDetail implements Serializable {
 
