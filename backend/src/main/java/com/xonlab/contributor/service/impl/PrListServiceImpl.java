@@ -28,8 +28,9 @@ public class PrListServiceImpl extends ServiceImpl<PrListMapper, PrList> impleme
 
     @Override
     public List<HistoryVo> getHistory(String start, String end) {
-        System.err.println("start:"+start);
-        System.err.println("end:"+end);
-        return baseMapper.getHistory(start,end);
+        if(!start.equals(end))
+            return baseMapper.getHistoryRange(start,end);
+        else
+            return baseMapper.getHistorySingle(start);
     }
 }

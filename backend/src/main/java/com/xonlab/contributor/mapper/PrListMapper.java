@@ -19,5 +19,7 @@ public interface PrListMapper extends BaseMapper<PrList> {
 
     List<MostContributorVo> getMostContributors();
 
-    List<HistoryVo> getHistory(String start, String end);
+    List<HistoryVo> getHistoryRange(String start, String end);
+
+    List<HistoryVo> getHistorySingle(String start);
 }
