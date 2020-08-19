@@ -31,39 +31,19 @@ public class PrListDataBatch {
     @Test
     public void fun() throws IOException, ParseException {
         //读取由pr_list爬到的文件
-        String closed = new String(Files.readAllBytes(Paths.get("../crawler/pr_list/prlist/prlist/pr_closed.json")), StandardCharsets.UTF_8);
-        String open = new String(Files.readAllBytes(Paths.get("../crawler/pr_list/prlist/prlist/pr_open.json")), StandardCharsets.UTF_8);
+        String closed = new String(Files.readAllBytes(Paths.get("../crawler/pr_list/prlist/prlist/pr_closed2.json")), StandardCharsets.UTF_8);
+        String open = new String(Files.readAllBytes(Paths.get("../crawler/pr_list/prlist/prlist/pr_open2.json")), StandardCharsets.UTF_8);
 
-        //将文件中的字符串按, "分割并放入Stream
-        Stream<String> closedContent1 = Stream.of(closed.split(", \""));
-        Stream<String> closedContent2 = Stream.of(closed.split(", \""));
-        Stream<String> closedContent3 = Stream.of(closed.split(", \""));
-        Stream<String> closedContent4 = Stream.of(closed.split(", \""));
+        //将文件中的字符串按, "分割并放入Stream,并取出相应字段
+        List<String> prNames = Stream.of(open.split(", \"")).filter(s -> s.contains("prName")).map(s -> s.substring(46,s.length()-1)).collect(Collectors.toList());
+        List<String> prAuthors = Stream.of(open.split(", \"")).filter(s -> s.contains("prAuthor")).map(s -> s.substring(12,s.length()-1)).collect(Collectors.toList());
+        List<String> prLinks = Stream.of(open.split(", \"")).filter(s -> s.contains("prLink")).map(s -> s.substring(10,s.length()-1)).map(s -> "https://github.com" + s).collect(Collectors.toList());
+        List<String> prTimes = Stream.of(open.split(", \"")).filter(s -> s.contains("prTime")).map(s -> s.substring(10,s.length()-2)).map(s -> s.replace("T"," ")).map(s -> s.replace("Z","")).collect(Collectors.toList());
         //TODO：因为有的pr没有Tag所以应该最后用Map来收集结果，key是链接，value是Tag
-        Stream<String> closedContent5 = Stream.of(closed.split(","));
-
-        Stream<String> openContent1 = Stream.of(open.split(", \""));
-        Stream<String> openContent2 = Stream.of(open.split(", \""));
-        Stream<String> openContent3 = Stream.of(open.split(", \""));
-        Stream<String> openContent4 = Stream.of(open.split(", \""));
-
-        //取出相应字段
-        List<String> prNames = closedContent1.filter(s -> s.contains("prName")).map(s -> s.substring(46,s.length()-1)).collect(Collectors.toList());
-        List<String> prAuthors = closedContent2.filter(s -> s.contains("prAuthor")).map(s -> s.substring(12,s.length()-1)).collect(Collectors.toList());
-        List<String> prLinks = closedContent3.filter(s -> s.contains("prLink")).map(s -> s.substring(10,s.length()-1)).map(s -> "https://github.com" + s).collect(Collectors.toList());
-        List<String> prTimes = closedContent4.filter(s -> s.contains("prTime")).map(s -> s.substring(10,s.length()-2)).map(s -> s.replace("T"," ")).map(s -> s.replace("Z","")).collect(Collectors.toList());
-//        List<String> prTags = closedContent5.filter(s -> s.contains("prTags")).map(s -> s.substring(12,s.length()-1)).collect(Collectors.toList());
-
-        insert(prNames, prAuthors, prLinks, prTimes);
-
-        prNames = openContent1.filter(s -> s.contains("prName")).map(s -> s.substring(46,s.length()-1)).collect(Collectors.toList());
-        prAuthors = openContent2.filter(s -> s.contains("prAuthor")).map(s -> s.substring(12,s.length()-1)).collect(Collectors.toList());
-        prLinks = openContent3.filter(s -> s.contains("prLink")).map(s -> s.substring(10,s.length()-1)).map(s -> "https://github.com" + s).collect(Collectors.toList());
-        prTimes = openContent4.filter(s -> s.contains("prTime")).map(s -> s.substring(10,s.length()-2)).map(s -> s.replace("T"," ")).map(s -> s.replace("Z","")).collect(Collectors.toList());
-
         insert(prNames, prAuthors, prLinks, prTimes);
     }
 
+    //写入数据库
     private void insert(List<String> prNames, List<String> prAuthors, List<String> prLinks, List<String> prTimes) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (prNames.size() == prAuthors.size() && prAuthors.size() == prLinks.size() && prLinks.size() == prTimes.size()) {
@@ -73,6 +53,7 @@ public class PrListDataBatch {
                 pr.setAuthor(prAuthors.get(i));
                 pr.setLink(prLinks.get(i));
                 pr.setTime(simpleDateFormat.parse(prTimes.get(i)));
+                pr.setStatus("open");
 //                pr.setTag(prTags.get(i));
                 prListMapper.insert(pr);
             }
