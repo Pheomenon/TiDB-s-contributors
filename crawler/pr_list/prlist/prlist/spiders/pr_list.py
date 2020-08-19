@@ -4,7 +4,7 @@ from prlist.items import PrlistItem
 class PrlistSpider(scrapy.Spider):
     name = "prlist"
     # allowed_domains = ["https://www.github.com"]
-    start_urls = ["https://github.com/pingcap/tidb/pulls?page=1&q=is%3Apr+is%3Aclosed"]
+    start_urls = ["https://github.com/pingcap/tidb/pulls?page=1&q=is%3Apr+is%3Aopen"]
 
     def parse(self,response):
         node_list = response.xpath("//div[@class='js-navigation-container js-active-navigation-container']/div/div[@class='d-flex Box-row--drag-hide position-relative']/div[@class='flex-auto min-width-0 p-2 pr-3 pr-md-2']")

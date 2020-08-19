@@ -10,7 +10,7 @@ import json
 import scrapy
 class PrlistPipeline(object):
     def __init__(self):
-        self.f = open("pr_closed2.json","wb")
+        self.f = open("pr_open2.json","wb")
 
     def process_item(self, item, spider):
         content = json.dumps(dict(item),ensure_ascii=False)+",\n"
