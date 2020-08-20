@@ -1,7 +1,26 @@
 # TiDB's contributors
 这个项目用于展示https://github.com/pingcap/tidb](https://github.com/pingcap/tidb) 这个repo下的所有的代码贡献者
 
-#### 实现思路
+[部署地址](http://119.3.183.144)  :fire::fire::fire::fire::fire:注：为了获得最佳体验在1080P的分辨率下需要将页面缩放至90%，如果是2K分辨率则缩放至100%:fire::fire::fire::fire::fire:
+
+### 页面效果：
+
+### 	Contributors List
+
+![批注 2020-08-21 015355](C:\Users\Gao\Desktop\批注 2020-08-21 015355.png)
+### Commit history
+
+![image-20200821032032287](C:\Users\Gao\AppData\Roaming\Typora\typora-user-images\image-20200821032032287.png)
+
+![image-20200821032137416](C:\Users\Gao\AppData\Roaming\Typora\typora-user-images\image-20200821032137416.png)
+
+![image-20200821032257017](C:\Users\Gao\AppData\Roaming\Typora\typora-user-images\image-20200821032257017.png)
+
+### The top30 tontributors
+
+![image-20200821032454663](C:\Users\Gao\AppData\Roaming\Typora\typora-user-images\image-20200821032454663.png)
+
+### 实现流程：
 
 * 抓取数据
 
@@ -38,8 +57,6 @@
 
 ```
 
-
-
 * 清洗得到的数据
 
 由于爬取到的数据实际上是一个长字符串，但最后数据肯定是都要进数据库的，所以利用convertor和test包下的类来对数据进行分类和格式化并放入数据库。目录结构：
@@ -50,8 +67,6 @@ src
  └── PathExtractor.java										 #取出每个PR的链接，为爬取PR详情提供目标
 
 ```
-
-
 
 * 后端构建
 
