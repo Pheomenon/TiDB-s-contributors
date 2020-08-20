@@ -32,7 +32,6 @@ public class PrDetailController {
     public R getList(@PathVariable long current,
                      @PathVariable long limit,
                      @RequestBody(required = false) Map condition){
-//        List<PrDetail> records = (List<PrDetail>)redisTemplate.opsForValue().get(condition+"prDetail");
         List<PrDetail> records = null;
         if(records == null){
             Page<PrDetail> listPage = new Page<>(current,limit);
@@ -40,13 +39,6 @@ public class PrDetailController {
             if(condition.get("key") != null){
                 wrapper.like("pr_author",condition.get("key"));
             }
-//            if(condition.get("dates") != null){
-//                Stream<String> dateStream = Stream.of(condition.get("dates").toString().split(", "));
-//                List<String> dates = dateStream.map(s -> s.replace("[","")).map(s -> s.replace("]","")).sorted().collect(Collectors.toList());
-//                wrapper.gt("time",dates.get(0));
-//                wrapper.le("time",dates.get(1));
-//            }
-//            wrapper.orderByDesc("time");
             prDetailService.page(listPage,wrapper);
             long total = listPage.getTotal();
             records = listPage.getRecords();
