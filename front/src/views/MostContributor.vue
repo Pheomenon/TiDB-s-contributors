@@ -4,59 +4,73 @@
       <h1 class="font-weight-light display-3 basil--text">The top 30 contributors</h1>
     </v-card-title>
     <v-divider></v-divider>
-    <ve-line height="800px" 
-      :data="chartData" 
-      :extend="extend" 
-      :loading="loading" 
-      :data-zoom="dataZoom" 
-      :mark-point="markPoint"
-      :colors="colors"
-      :settings="chartSettings"
-      ></ve-line>
+    <ve-line height="800px"
+             :data="chartData"
+             :extend="extend"
+             :loading="loading"
+             :data-zoom="dataZoom"
+             :mark-point="markPoint"
+             :colors="colors"
+             :settings="chartSettings"></ve-line>
+
   </v-app>
 </template>
 
 <script>
 import listApi from '@/api/prlist'
 export default {
-  data () {
+  data() {
     this.chartSettings = {
       scale: true,
     }
-    this.colors = ['#000080','#40E0D0', '#61a0a8',
-      '#A52A2A', '#91c7ae','#EE7942', 
-      '#ff66ff', '#FFDAB9','#6e7074',
-      '#FF4500', '#ADD8E6']
+    this.colors = [
+      '#000080',
+      '#40E0D0',
+      '#61a0a8',
+      '#A52A2A',
+      '#91c7ae',
+      '#EE7942',
+      '#ff66ff',
+      '#FFDAB9',
+      '#6e7074',
+      '#FF4500',
+      '#ADD8E6',
+      '#800000',
+      '#2E8B57',
+      '#FF0033',
+      '#333399',
+      '#336699',
+    ]
     this.markPoint = {
       data: [
-          {
-            name: '最大值',
-            type: 'max'
-          }
-        ]
-      }
-    this.dataZoom = [
         {
-          type: 'slider',
-          start: 0,
-          end: 80
-        }
-      ]
+          name: '最大值',
+          type: 'max',
+        },
+      ],
+    }
+    this.dataZoom = [
+      {
+        type: 'slider',
+        start: 0,
+        end: 80,
+      },
+    ]
     this.extend = {
       series: {
         label: {
           normal: {
-            show: true
-          }
-        }
-      }
+            show: true,
+          },
+        },
+      },
     }
     return {
       chartData: {
         columns: [],
-        rows: []
+        rows: [],
       },
-      loading: true
+      loading: true,
     }
   },
   created() {
@@ -64,12 +78,12 @@ export default {
   },
   methods: {
     getData() {
-        listApi.getMost().then(response => {
+      listApi.getMost().then((response) => {
         this.chartData.rows = response.data.data.rows
         this.chartData.columns = response.data.data.columns
       })
       this.loading = false
-    }
+    },
   },
-};
+}
 </script>
