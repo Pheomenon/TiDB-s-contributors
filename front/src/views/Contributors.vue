@@ -90,10 +90,11 @@ export default {
     ],
     list: [],
     total: 0,
+    //用于封装查询条件
     condition: {},
     page: 1,
-    limit: 13796,
-    loading: false,
+    limit: 500,
+    loading: true,
   }),
   created() {
     this.condition = {}

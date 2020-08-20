@@ -176,6 +176,9 @@ export default {
 
       nativeEvent.stopPropagation()
     },
+    /*
+    当日历中的日期改变时传回一个对象数组，start和end。利用这两个对象携带的时间来向后端请求数据
+    */
     updateRange({ start, end }) {
       const events = []
       listApi.getHistory(start.date, end.date).then((response) => {
@@ -193,6 +196,9 @@ export default {
         this.events = events
       })
     },
+    /*
+    随机获取一个值，用于渲染颜色属性
+    */
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
