@@ -33,8 +33,16 @@ public class PrListController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    /**
+     * 传递start和end两个参数来构成时间区间，
+     * 利用这个作为查询条件来返回在某时间段内的pr的详情
+     * @param start
+     * @param end
+     * @return
+     */
     @GetMapping("/history/{start}/{end}")
     public R getHistory(@PathVariable String start, @PathVariable String end) {
+        //如果能在Redis中查到直接则直接返回结果，否则才去查询数据库
         List<HistoryVo> queryResult = (List<HistoryVo>) redisTemplate.opsForValue().get(start + "_" + end);
         if (queryResult == null) {
             queryResult = prListService.getHistory(start, end);
@@ -43,6 +51,10 @@ public class PrListController {
         return R.ok().data("rows", queryResult);
     }
 
+    /**
+     * 按照提交的次数来排序，返回那些在某一天里提交次数最多的Contributor及他们提交的次数
+     * @return
+     */
     @GetMapping("/most")
     public R getMost() {
         List<Map> result = new ArrayList<>();
@@ -72,6 +84,13 @@ public class PrListController {
         return R.ok().data("rows", result).data("columns", nameSet);
     }
 
+    /**
+     * 根据时间或者姓名来分页查询Contributor的信息
+     * @param current
+     * @param limit
+     * @param condition
+     * @return
+     */
     @PostMapping("/{current}/{limit}")
     public R getList(@PathVariable long current,
                      @PathVariable long limit,

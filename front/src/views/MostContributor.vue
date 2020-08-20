@@ -67,6 +67,7 @@ export default {
     }
     return {
       chartData: {
+        //表格中的列名，通过这个来渲染各条线的名称
         columns: [],
         rows: [],
       },
