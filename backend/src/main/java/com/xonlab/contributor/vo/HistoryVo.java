@@ -18,4 +18,8 @@ public class HistoryVo {
 
     private String title;
 
+    private String detail;
+
+    private String link;
+
 }

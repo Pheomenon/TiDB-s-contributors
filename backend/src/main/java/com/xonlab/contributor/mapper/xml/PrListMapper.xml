@@ -3,12 +3,47 @@
 <mapper namespace="com.xonlab.contributor.mapper.PrListMapper">
 <!--    按年份查询提交次数最多的人-->
     <select id="getMostContributors" resultType="com.xonlab.contributor.vo.MostContributorVo">
-        SELECT author as name, DATE_FORMAT(time,'%Y-%m-%d') as date,count(author) as times FROM pr_list GROUP BY name,date ORDER BY times DESC,name limit 178;
+        SELECT
+            author AS NAME,
+            DATE_FORMAT(time, '%Y-%m-%d') AS date,
+            count(author) AS times
+        FROM
+            pr_list
+        GROUP BY
+            NAME,
+            date
+        ORDER BY
+            times DESC,
+            NAME
+        LIMIT 178;
     </select>
     <select id="getHistoryRange" resultType="com.xonlab.contributor.vo.HistoryVo">
-        SELECT time, title from pr_list where time &gt;= #{start} and time &lt;= #{end} ORDER BY time;
+        SELECT DISTINCT
+            time,
+            title,
+            pr_detail.pr_detail as detail,
+            link
+        FROM
+            pr_list,
+            pr_detail
+        WHERE
+            time &gt;= #{start}
+        AND time &lt;= #{end}
+        AND pr_list.title = pr_detail.pr_title
+        ORDER BY
+        title;
     </select>
     <select id="getHistorySingle" resultType="com.xonlab.contributor.vo.HistoryVo">
-        SELECT time, title from pr_list where DATE_FORMAT(time,'%Y-%m-%d') = #{start}  ORDER BY time;
+        SELECT DISTINCT
+            time,
+            title,
+            pr_detail.pr_detail as detail,
+            link
+        FROM
+            pr_list,
+            pr_detail
+        WHERE
+            DATE_FORMAT(time, '%Y-%m-%d') = #{start}
+        AND pr_detail.pr_title = pr_list.title;
     </select>
 </mapper>
