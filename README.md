@@ -7,18 +7,18 @@
 
 ### 	Contributors List
 
-![批注 2020-08-21 015355](https://edu-102.oss-cn-beijing.aliyuncs.com/TiDB/%E6%89%B9%E6%B3%A8%202020-08-21%20015355.png)
+![批注 2020-08-21 015355](https://github.com/Pheomenon/tidb_contributors/blob/master/ReademeSource/批注 2020-08-21 015355.png)
 ### Commit history
 
-![image-20200821032032287](https://edu-102.oss-cn-beijing.aliyuncs.com/TiDB/image-20200821032032287.png)
+![image-20200821032032287](https://github.com/Pheomenon/tidb_contributors/blob/master/ReademeSource/image-20200821032032287.png)
 
-![image-20200821032137416](https://edu-102.oss-cn-beijing.aliyuncs.com/TiDB/image-20200821032137416.png)
+![image-20200821032137416](https://github.com/Pheomenon/tidb_contributors/blob/master/ReademeSource/image-20200821032137416.png)
 
-![image-20200821032257017](https://edu-102.oss-cn-beijing.aliyuncs.com/TiDB/image-20200821032257017.png)
+![image-20200821032257017](https://github.com/Pheomenon/tidb_contributors/blob/master/ReademeSource/image-20200821032257017.png)
 
 ### The top30 tontributors
 
-![image-20200821032454663](https://edu-102.oss-cn-beijing.aliyuncs.com/TiDB/image-20200821032454663.png)
+![image-20200821032454663](https://github.com/Pheomenon/tidb_contributors/blob/master/ReademeSource/image-20200821032454663.png)
 
 ### 实现流程：
 
