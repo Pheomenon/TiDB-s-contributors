@@ -35,7 +35,11 @@ public class PrListController {
 
     @GetMapping("/history/{start}/{end}")
     public R getHistory(@PathVariable String start, @PathVariable String end) {
-        List<HistoryVo> queryResult = prListService.getHistory(start, end);
+        List<HistoryVo> queryResult = (List<HistoryVo>) redisTemplate.opsForValue().get(start + "_" + end);
+        if (queryResult == null) {
+            queryResult = prListService.getHistory(start, end);
+            redisTemplate.opsForValue().set(start + "_" + end, queryResult, 24, TimeUnit.HOURS);
+        }
         return R.ok().data("rows", queryResult);
     }
 
