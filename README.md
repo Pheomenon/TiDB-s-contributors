@@ -1,7 +1,7 @@
 # TiDB's contributors
 这个项目用于展示https://github.com/pingcap/tidb](https://github.com/pingcap/tidb) 这个repo下的所有的代码贡献者
 
-[部署地址](http://119.3.183.144)  :fire::fire::fire::fire::fire:注：为了获得最佳体验在1080P的分辨率下需要将页面缩放至90%，如果是2K分辨率则缩放至100%:fire::fire::fire::fire::fire:
+[部署地址](http://119.3.183.144)  :fire::fire::fire::fire::fire:注：为了获得最佳体验在1080P的分辨率下需要将页面缩放至90%，如果是2K分辨率则缩放至100%，另外，因为部署的这台服务器性能实在是令人捉急，所以如果看不到数据，请稍微等它一会:persevere:
 
 ### 页面效果：
 
