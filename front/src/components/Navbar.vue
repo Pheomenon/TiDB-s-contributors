@@ -11,25 +11,12 @@
         <v-btn router :to="'/contributors'">
             <span style="text-transform: none;">Contributors</span>
         </v-btn>
-        <v-btn router :to="'/pulls'">
-            <span style="text-transform: none;">Pull requests</span>
-        </v-btn>
         <v-btn router :to="'/most'">
             <span style="text-transform: none;">The top 30 contributors</span>
         </v-btn>
-        <v-menu offset-y>
-            <template v-slot:activator="{on}">
-                <v-btn text v-on="on">
-                    <v-icon left>expand_more</v-icon>
-                    <span style="text-transform: none;">Statistics</span>
-                </v-btn>
-            </template>
-            <v-list flat>
-                <v-list-item v-for="link in links" :key="link.text" router :to="link.route" active-class="border">
-                    <v-list-item-title>{{link.text}}</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
+        <v-btn router :to="'/history'">
+            <span style="text-transform: none;">Commit History</span>
+        </v-btn>
         <v-btn text href="https://github.com/pingcap/tidb">
             <span>Go to Github</span>
             <v-icon right>exit_to_app</v-icon>
@@ -42,11 +29,6 @@
 export default {
     data: () => ({
         drawer: true,
-        links: [
-            {icon: 'dashboard', text: 'Dashboard', route:'/'},
-            {icon: 'folder', text: 'Commit history', route:'/history'},
-            {icon: 'person', text: 'The most contributor', route:'/most'}
-        ]
     })
 }
 </script>

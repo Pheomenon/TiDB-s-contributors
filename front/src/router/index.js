@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Contributors from '@/views/Contributors'
-import Dashboard from '@/views/Dashboard'
-import PullRequests from '@/views/PullRequests'
 import CommitHistory from '@/views/CommitHistory'
 import MostContributor from '@/views/MostContributor'
 
@@ -11,18 +9,13 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'dashboard',
-    component: Dashboard
+    name: 'contributors',
+    component: Contributors
   },
   {
     path: '/contributors',
     name: 'Contributors',
     component: Contributors
-  },
-  {
-    path: '/pulls',
-    name: 'pulls',
-    component: PullRequests
   },
   {
     path: '/history',
